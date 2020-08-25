@@ -35,14 +35,15 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      // TODO
+      await api.get('products')
+        .then(product => { setProducts(product.data) })
     }
 
     loadProducts();
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    addToCart(item);
   }
 
   return (
@@ -63,7 +64,7 @@ const Dashboard: React.FC = () => {
                 <ProductPrice>{formatValue(item.price)}</ProductPrice>
                 <ProductButton
                   testID={`add-to-cart-${item.id}`}
-                  onPress={() => handleAddToCart(item)}
+                  onPress={(value) => handleAddToCart(item)}
                 >
                   <FeatherIcon size={20} name="plus" color="#C4C4C4" />
                 </ProductButton>
